@@ -42,6 +42,10 @@ public class StoreDAO implements DAO, Serializable
             String sql = "select name from store where region = 'Sormovsky' or region = 'Sovetsky';";
             return jdbcTemplate.queryForList(sql);
         }
+        public List findStoreNotInAutozavodsky() {
+            String sql = "select * from store where store.region not like 'Autozavodsky' and store.id in (select store_id from buy, client where client_id = client.id and discount between 10 and 15);";
+            return jdbcTemplate.queryForList(sql);
+        }
         public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
             this.jdbcTemplate = jdbcTemplate;
         }

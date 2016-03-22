@@ -15,12 +15,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new GenericXmlApplicationContext("config.xml");
-        //поиск клиентов и названий магазинов для покупок
-        BuyDAO buyDAO = (BuyDAO)context.getBean("buyDAO");
-        List buylist =  buyDAO.findClientAndStoreName();
-        System.out.println("Query result -->" + buylist);
-        //поиск деталей заказа(имя клиента, название книги и тд)
-        List buylist2 =  buyDAO.findBuySpeciality();
-        System.out.println("Query result -->" + buylist2);
+        //поиск магазина, разположеного не на Автозаводе, где покупали люди со скидкой от 10 до 15 %
+        StoreDAO storeDAO = (StoreDAO)context.getBean("storeDAO");
+        List storelist =  storeDAO.findStoreNotInAutozavodsky();
+        System.out.println("Query result -->" + storelist);
     }
 }
