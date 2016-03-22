@@ -40,6 +40,16 @@ public class BuyDAO implements DAO, Serializable {
         String sql = "select DISTINCT EXTRACT (MONTH from buy_date) as month from buy;";
         return jdbcTemplate.queryForList(sql);
     }
+    public List findClientAndStoreName()
+    {
+        String sql = "select surname, name from client, store, buy where buy.client_id = client.id and buy.store_id = store.id;";
+        return jdbcTemplate.queryForList(sql);
+    }
+    public List findBuySpeciality()
+    {
+        String sql = "select buy_date, surname, discount, title, buy.amount from client, book, buy where buy.client_id = client.id and buy.book_id = book.id;";
+        return jdbcTemplate.queryForList(sql);
+    }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

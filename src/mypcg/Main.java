@@ -15,17 +15,12 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new GenericXmlApplicationContext("config.xml");
-        //поиск клиентов из Нижегородского района
-        ClientDAO clientDAO = (ClientDAO)context.getBean("clientDAO");
-        List clientlist = clientDAO.findNizhegorodskyClient();
-        System.out.println("Query Result -->" + clientlist);
-        //поиск магазинов в Сормовском и Советском районах
-        StoreDAO storeDAO = (StoreDAO)context.getBean("storeDAO");
-        List storelist = storeDAO.findSormovskyAndSovetskyStore();
-        System.out.println("Query Result -->" + storelist);
-        //поиск книг с Windows или стоящих > 20000
-        BookDAO bookDAO = (BookDAO) context.getBean("bookDAO");
-        List booklist = bookDAO.findWindowsOrMore20000();
-        System.out.println("Query Result -->" + booklist);
+        //поиск клиентов и названий магазинов для покупок
+        BuyDAO buyDAO = (BuyDAO)context.getBean("buyDAO");
+        List buylist =  buyDAO.findClientAndStoreName();
+        System.out.println("Query result -->" + buylist);
+        //поиск деталей заказа(имя клиента, название книги и тд)
+        List buylist2 =  buyDAO.findBuySpeciality();
+        System.out.println("Query result -->" + buylist2);
     }
 }
