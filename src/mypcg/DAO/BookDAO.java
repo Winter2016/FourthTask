@@ -50,6 +50,11 @@ public class BookDAO implements DAO, Serializable{
         String sql = "select DISTINCT cost from book;";
         return jdbcTemplate.queryForList(sql);
     }
+    public List findWindowsOrMore20000()
+    {
+        String sql = "select title, cost from book where (title like '%Windows%' or cost > 20000) order by cost desc, title;";
+        return jdbcTemplate.queryForList(sql);
+    }
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

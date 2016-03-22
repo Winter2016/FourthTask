@@ -42,7 +42,11 @@ public class ClientDAO implements DAO, Serializable {
         String sql = "select DISTINCT region from client;";
         return jdbcTemplate.queryForList(sql);
     }
-
+    public List findNizhegorodskyClient()
+    {
+        String sql = "select surname, discount from client where region='Nizhegorodsky';";
+        return jdbcTemplate.queryForList(sql);
+    }
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }

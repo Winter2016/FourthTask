@@ -3,6 +3,7 @@ package mypcg;
 import mypcg.DAO.BookDAO;
 import mypcg.DAO.BuyDAO;
 import mypcg.DAO.ClientDAO;
+import mypcg.DAO.StoreDAO;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
@@ -14,19 +15,17 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         ApplicationContext context = new GenericXmlApplicationContext("config.xml");
-        //поиск всех различных районов проживания
+        //поиск клиентов из Нижегородского района
         ClientDAO clientDAO = (ClientDAO)context.getBean("clientDAO");
-        List clientlist = clientDAO.findUniqueRegion();
+        List clientlist = clientDAO.findNizhegorodskyClient();
         System.out.println("Query Result -->" + clientlist);
-        //поиск всех различных названий и цен книг
+        //поиск магазинов в Сормовском и Советском районах
+        StoreDAO storeDAO = (StoreDAO)context.getBean("storeDAO");
+        List storelist = storeDAO.findSormovskyAndSovetskyStore();
+        System.out.println("Query Result -->" + storelist);
+        //поиск книг с Windows или стоящих > 20000
         BookDAO bookDAO = (BookDAO) context.getBean("bookDAO");
-        List booklist = bookDAO.findUniqueTitle();
+        List booklist = bookDAO.findWindowsOrMore20000();
         System.out.println("Query Result -->" + booklist);
-        List booklist2 = bookDAO.findUniqueCost();
-        System.out.println("Query Result -->" + booklist2);
-        //поиск всех различных месяцев покупок
-        BuyDAO buyDAO = (BuyDAO)context.getBean("buyDAO");
-        List buylist = buyDAO.findUniqueBuyMonth();
-        System.out.println("Query Result -->" + buylist);
     }
 }

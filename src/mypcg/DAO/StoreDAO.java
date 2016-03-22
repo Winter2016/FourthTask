@@ -38,7 +38,10 @@ public class StoreDAO implements DAO, Serializable
             String sql = "insert into book values(?, ?, ?, ?);";
             jdbcTemplate.update(sql,new Object[] {id, name, region, commission} );
         }
-
+        public List findSormovskyAndSovetskyStore() {
+            String sql = "select name from store where region = 'Sormovsky' or region = 'Sovetsky';";
+            return jdbcTemplate.queryForList(sql);
+        }
         public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
             this.jdbcTemplate = jdbcTemplate;
         }
