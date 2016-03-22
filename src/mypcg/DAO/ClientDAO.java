@@ -1,39 +1,46 @@
-package mypcg;
+package mypcg.DAO;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.List;;
 
 /**
- * Created by Ксения on 3/21/2016.
+ * Created by Ксения on 3/20/2016.
  */
-public class BuyDAO implements DAO, Serializable {
+public class ClientDAO implements DAO, Serializable {
     private javax.sql.DataSource dataSource;
     private JdbcTemplate jdbcTemplate;
     @Override
     public List findAll() {
-        String sql = "select * from buy;";
+        String sql = "select * from client;";
         return jdbcTemplate.queryForList(sql);
     }
     @Override
     public int lineCount() {
-        String sql = "select count(*) from buy;";
+        String sql = "select count(*) from client;";
         return jdbcTemplate.queryForObject(sql,Integer.TYPE);
     }
     @Override
     public void deleteLine(int id) {
-        String sql = "delete from buy where id =?;";
+        String sql = "delete from client where id =?;";
         jdbcTemplate.update(sql, new Object[] {id});
     }
     @Override
     public void updateTable(String name,int id) {
+        String sql = "update client set surname =? where id =?;";
+        jdbcTemplate.update(sql,new Object[] {name, id} );
     }
 
-    public void addLine(int id, java.util.Date buy_date, int store_id, int client_id, int book_id, int amount, double cost)
+    public void addLine(int id, String surname,String region, double discount)
     {
-        String sql = "insert into buy values(?, ?, ?, ?, ?, ?, ?);";
-        jdbcTemplate.update(sql,new Object[] {id, buy_date, store_id, client_id, book_id, amount, cost} );
+        String sql = "insert into client values(?, ?, ?, ?);";
+        jdbcTemplate.update(sql,new Object[] {id, surname, region, discount} );
+    }
+    public List findUniqueRegion()
+    {
+        String sql = "select DISTINCT region from client;";
+        return jdbcTemplate.queryForList(sql);
     }
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {

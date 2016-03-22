@@ -1,4 +1,4 @@
-package mypcg;
+package mypcg.DAO;
 
 import java.util.List;
 import java.util.Map;

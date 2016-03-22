@@ -1,4 +1,4 @@
-package mypcg;
+package mypcg.DAO;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -39,6 +39,16 @@ public class BookDAO implements DAO, Serializable{
     {
         String sql = "insert into book values(?, ?, ?, ?, ?);";
         jdbcTemplate.update(sql,new Object[] {id, title, cost, storehouse, amount} );
+    }
+    public List findUniqueTitle()
+    {
+        String sql = "select DISTINCT title from book;";
+        return jdbcTemplate.queryForList(sql);
+    }
+    public List findUniqueCost()
+    {
+        String sql = "select DISTINCT cost from book;";
+        return jdbcTemplate.queryForList(sql);
     }
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;

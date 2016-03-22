@@ -1,5 +1,6 @@
-package mypcg;
+package mypcg.DAO;
 
+import mypcg.DAO.DAO;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.io.Serializable;
